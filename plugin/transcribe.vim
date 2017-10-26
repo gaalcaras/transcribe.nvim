@@ -1,0 +1,1 @@
+call transcribe#init#general()

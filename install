@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if command -v mpv >/dev/null 2>&1; then
+  echo 'Great, mpv is already installed on your system.'
+else
+  echo 'Please install mpv to use transcribe.nvim'
+fi
+
+pip install neovim python-mpv --quiet

@@ -1,0 +1,56 @@
+*transcribe.txt*  Transcription features for NeoVim
+
+                  T R A N S C R I B E . N V I M~
+
+Version:            unstable (under current development)
+Original Author:    Gabriel Alcaras <gaby.alcaras@gmail.com>
+License:            GNU GPLv3
+
+TABLE OF CONTENTS                                        *transcribe-contents*
+==============================================================================
+
+    1. Introduction .................... |transcribe-intro|
+    2. Install ......................... |transcribe-install|
+    3. Usage ........................... |transcribe-usage|
+
+
+
+INTRODUCTION                                                *transcribe-intro*
+==============================================================================
+
+*transcribe* is a NeoVim plugin aimed at helping humans to transcribe
+recordings to text. Features include :
+
+* Native bindings for media control (load, play and pause)
+
+INSTALL                                                   *transcribe-install*
+==============================================================================
+
+Use your favorite plugin manager.
+
+Using vim-plug:
+>
+  Plug 'gaalcaras/transcibe.nvim',
+       \ { 'do': ['./install', ':UpdateRemotePlugins'] }
+<
+
+*transcribe* relies on MPV and python-mpv for media playback. Run:
+>
+  ./install
+<
+to make sure they are both installed, or install them manually.
+
+USAGE                                                       *transcribe-usage*
+==============================================================================
+
+Load local file or URL:
+>
+:TranscribeAudio https://www.youtube.com/watch?v=o8NPllzkFhE
+<
+
+Playback should start playing automatically.
+
+You can pause/resume playback with <leader><space> or using the command
+>
+:TranscribePause
+<
