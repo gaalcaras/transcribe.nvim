@@ -13,7 +13,7 @@ Transcribe is a [NeoVim](https://neovim.io/) plugin aimed at helping humans to t
 Using [vim-plug](https://github.com/junegunn/vim-plug):
 
 ```vim
-Plug 'gaalcaras/transcibe.nvim', { 'do': ['./install', ':UpdateRemotePlugins']}
+Plug 'gaalcaras/transcribe.nvim', { 'do': './install' }
 ```
 
 Transcribe relies on [mpv](https://mpv.io/) and [python-mpv](https://github.com/jaseg/python-mpv) for media playback. Run `./install` to make sure they are both installed, or install them manually. Don't forget to run `:UpdateRemotePlugins` and restart NeoVim to properly install or update the plugin.

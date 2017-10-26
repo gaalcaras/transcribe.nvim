@@ -30,8 +30,7 @@ Use your favorite plugin manager.
 
 Using vim-plug:
 >
-  Plug 'gaalcaras/transcibe.nvim',
-       \ { 'do': ['./install', ':UpdateRemotePlugins'] }
+  Plug 'gaalcaras/transcribe.nvim', { 'do': './install' }
 <
 
 *transcribe* relies on MPV and python-mpv for media playback. Run:
