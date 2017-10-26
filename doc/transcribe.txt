@@ -1,4 +1,4 @@
-*transcribe.txt*  Transcription features for NeoVim
+*transcribe*  Transcription features for NeoVim
 
                   T R A N S C R I B E . N V I M~
 
