@@ -7,3 +7,5 @@ else
 fi
 
 pip install neovim python-mpv --quiet
+
+nvim +UpdateRemotePlugins +qall
