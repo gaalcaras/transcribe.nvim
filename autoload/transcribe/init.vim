@@ -12,4 +12,10 @@ function! s:init_default_mappings()
   endfunction
 
   call s:map('n', '<leader><space>', '<plug>(transcribe-toggle-pause)')
+  call s:map('i', '<C-space>', '<plug>(transcribe-toggle-pause)')
+
+  call s:map('n', '<leader>k', '<plug>(transcribe-inc-speed)')
+  call s:map('i', '<C-k>', '<plug>(transcribe-inc-speed)')
+  call s:map('n', '<leader>j', '<plug>(transcribe-dec-speed)')
+  call s:map('i', '<C-j>', '<plug>(transcribe-dec-speed)')
 endfunction
