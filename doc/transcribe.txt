@@ -70,14 +70,14 @@ Mapping         Mode Plug
 -------------------------------------------------------
 <leader><space> n    |<plug>(transcribe-toggle-pause)|
 <C-space>       i    |<plug>(transcribe-toggle-pause)|
-<leader>k       n    |<plug>(transcribe-inc-speed)|
-<C-k>           i    |<plug>(transcribe-inc-speed)|
-<leader>j       n    |<plug>(transcribe-dec-speed)|
-<C-j>           i    |<plug>(transcribe-dec-speed)|
-<leader>l       n    |<plug>(transcribe-inc-seek)|
-<C-l>           i    |<plug>(transcribe-inc-seek)|
-<leader>h       n    |<plug>(transcribe-dec-seek)|
-<C-h>           i    |<plug>(transcribe-dec-seek)|
+<leader>k       n    |<plug>(transcribe-speed-inc)|
+<C-k>           i    |<plug>(transcribe-speed-inc)|
+<leader>j       n    |<plug>(transcribe-speed-dec)|
+<C-j>           i    |<plug>(transcribe-speed-dec)|
+<leader>l       n    |<plug>(transcribe-seek-forward)|
+<C-l>           i    |<plug>(transcribe-seek-forward)|
+<leader>h       n    |<plug>(transcribe-seek-backward)|
+<C-h>           i    |<plug>(transcribe-seek-backward)|
 <leader>p       n    |<plug>(transcribe-progress)|
 <C-t>           i    |<plug>(transcribe-timepos-get)|
 
@@ -119,14 +119,14 @@ file, for instance with |TranscribeAudio|.
                 `:TranscribeSpeedSet 0.8`
 
 
-                                                *<plug>(transcribe-inc-speed)*
+                                                *<plug>(transcribe-speed-inc)*
 :TranscribeSpeedInc                                       *TranscribeSpeedInc*
 
 
                 Increase playback speed by adding 0.1 to current setting.
 
 
-                                                *<plug>(transcribe-dec-speed)*
+                                                *<plug>(transcribe-speed-dec)*
 :TranscribeSpeedDec                                       *TranscribeSpeedDec*
 
                 Decrease playback speed by subtracting 0.1 to current setting.
@@ -140,15 +140,15 @@ file, for instance with |TranscribeAudio|.
                 `:TranscribeSeek -15`
 
 
-                                                 *<plug>(transcribe-inc-seek)*
-:TranscribeSeekInc                                         *TranscribeSeekInc*
+                                             *<plug>(transcribe-seek-forward)*
+:TranscribeSeekForward                                 *TranscribeSeekForward*
 
 
                 Seek forward 15 seconds.
 
 
-                                                 *<plug>(transcribe-dec-seek)*
-:TranscribeSeekDec                                         *TranscribeSeekDec*
+                                            *<plug>(transcribe-seek-backward)*
+:TranscribeSeekBackward                               *TranscribeSeekBackward*
 
                 Seek backward 15 seconds.
 

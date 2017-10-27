@@ -17,31 +17,31 @@ function! transcribe#helper#control(media, mode) abort
         \ call _transcribe_speed(0.1, 'dec')
   command! -nargs=1 TranscribeSeek
         \ call _transcribe_seek(<q-args>)
-  command! -nargs=0 TranscribeSeekInc
+  command! -nargs=0 TranscribeSeekForward
         \ call _transcribe_seek(15)
-  command! -nargs=0 TranscribeSeekDec
+  command! -nargs=0 TranscribeSeekBackward
         \ call _transcribe_seek(-15)
 
   nnoremap <buffer> <plug>(transcribe-toggle-pause)
-        \ :call _transcribe_pause()<cr>
+        \ :TranscribePause<cr>
   inoremap <buffer> <plug>(transcribe-toggle-pause)
-        \ <C-o>:call _transcribe_pause()<cr>
-  nnoremap <buffer> <plug>(transcribe-inc-speed)
-        \ :call _transcribe_speed(0.1, 'inc')<cr>
-  inoremap <buffer> <plug>(transcribe-inc-speed)
-        \ <C-o>:call _transcribe_speed(0.1, 'inc')<cr>
-  nnoremap <buffer> <plug>(transcribe-dec-speed)
-        \ :call _transcribe_speed(0.1, 'dec')<cr>
-  inoremap <buffer> <plug>(transcribe-dec-speed)
-        \ <C-o>:call _transcribe_speed(0.1, 'dec')<cr>
-  nnoremap <buffer> <plug>(transcribe-inc-seek)
-        \ :call _transcribe_seek(15)<cr>
-  inoremap <buffer> <plug>(transcribe-inc-seek)
-        \ <C-o>:call _transcribe_seek(15)<cr>
-  nnoremap <buffer> <plug>(transcribe-dec-seek)
-        \ :call _transcribe_seek(-15)<cr>
-  inoremap <buffer> <plug>(transcribe-dec-seek)
-        \ <C-o>:call _transcribe_seek(-15)<cr>
+        \ <C-o>:TranscribePause<cr>
+  nnoremap <buffer> <plug>(transcribe-speed-inc)
+        \ :TranscribeSpeedInc<cr>
+  inoremap <buffer> <plug>(transcribe-speed-inc)
+        \ <C-o>:TranscribeSpeedInc<cr>
+  nnoremap <buffer> <plug>(transcribe-speed-dec)
+        \ :TranscribeSpeedDec<cr>
+  inoremap <buffer> <plug>(transcribe-speed-dec)
+        \ <C-o>:TranscribeSpeedDec<cr>
+  nnoremap <buffer> <plug>(transcribe-seek-forward)
+        \ :TranscribeSeekForward<cr>
+  inoremap <buffer> <plug>(transcribe-seek-forward)
+        \ <C-o>:TranscribeSeekForward<cr>
+  nnoremap <buffer> <plug>(transcribe-seek-backward)
+        \ :TranscribeSeekBackward<cr>
+  inoremap <buffer> <plug>(transcribe-seek-backward)
+        \ <C-o>:TranscribeSeekBackward<cr>
 endfunction
 
 function! transcribe#helper#timepos() abort
@@ -49,7 +49,7 @@ function! transcribe#helper#timepos() abort
         \ call _transcribe_progress()
 
   nnoremap <buffer> <plug>(transcribe-progress)
-        \ :call _transcribe_progress()<cr>
+        \ :TranscribeProgress<cr>
   inoremap <buffer> <plug>(transcribe-timepos-get)
         \ <C-R>=_transcribe_get_timepos()<C-M>
 endfunction
