@@ -81,6 +81,14 @@ class Transcribe(object):
 
     @neovim.function('_transcribe_seek')
     def seek(self, args):
+        """Seek forward or backward
+
+        Arguments:
+        seek_target -- nonzero integer (nb of seconds)
+        """
+        # Wait for media file to be properly loaded
+        self.player.wait_for_property('time-pos')
+
         seek_target = args[0]
 
         try:
