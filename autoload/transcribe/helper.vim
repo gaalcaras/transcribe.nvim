@@ -24,21 +24,21 @@ function! transcribe#helper#control(media, mode) abort
   nnoremap <buffer> <plug>(transcribe-toggle-pause)
         \ :call _transcribe_pause()<cr>
   inoremap <buffer> <plug>(transcribe-toggle-pause)
-        \ <Esc>:call _transcribe_pause()<cr>a
+        \ <C-o>:call _transcribe_pause()<cr>
   nnoremap <buffer> <plug>(transcribe-inc-speed)
         \ :call _transcribe_speed(0.1, 'inc')<cr>
   inoremap <buffer> <plug>(transcribe-inc-speed)
-        \ <Esc>:call _transcribe_speed(0.1, 'inc')<cr>a
+        \ <C-o>:call _transcribe_speed(0.1, 'inc')<cr>
   nnoremap <buffer> <plug>(transcribe-dec-speed)
         \ :call _transcribe_speed(0.1, 'dec')<cr>
   inoremap <buffer> <plug>(transcribe-dec-speed)
-        \ <Esc>:call _transcribe_speed(0.1, 'dec')<cr>a
+        \ <C-o>:call _transcribe_speed(0.1, 'dec')<cr>
   nnoremap <buffer> <plug>(transcribe-inc-seek)
         \ :call _transcribe_seek(15)<cr>
   inoremap <buffer> <plug>(transcribe-inc-seek)
-        \ <Esc>:call _transcribe_seek(15)<cr>a
+        \ <C-o>:call _transcribe_seek(15)<cr>
   nnoremap <buffer> <plug>(transcribe-dec-seek)
         \ :call _transcribe_seek(-15)<cr>
   inoremap <buffer> <plug>(transcribe-dec-seek)
-        \ <Esc>:call _transcribe_seek(-15)<cr>a
+        \ <C-o>:call _transcribe_seek(-15)<cr>
 endfunction
