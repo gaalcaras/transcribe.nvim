@@ -23,4 +23,7 @@ function! s:init_default_mappings()
   call s:map('i', '<C-l>', '<plug>(transcribe-inc-seek)')
   call s:map('n', '<leader>h', '<plug>(transcribe-dec-seek)')
   call s:map('i', '<C-h>', '<plug>(transcribe-dec-seek)')
+
+  call s:map('n', '<leader>p', '<plug>(transcribe-progress)')
+  call s:map('i', '<C-t>', '<plug>(transcribe-timepos-get)')
 endfunction

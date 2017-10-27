@@ -5,6 +5,7 @@ endfunction
 
 function! transcribe#helper#control(media, mode) abort
   call _transcribe_load(a:media, a:mode)
+  call transcribe#helper#timepos()
 
   command! -nargs=0 TranscribePause
         \ call _transcribe_pause()
@@ -41,4 +42,14 @@ function! transcribe#helper#control(media, mode) abort
         \ :call _transcribe_seek(-15)<cr>
   inoremap <buffer> <plug>(transcribe-dec-seek)
         \ <C-o>:call _transcribe_seek(-15)<cr>
+endfunction
+
+function! transcribe#helper#timepos() abort
+  command! -nargs=0 TranscribeProgress
+        \ call _transcribe_progress()
+
+  nnoremap <buffer> <plug>(transcribe-progress)
+        \ :call _transcribe_progress()<cr>
+  inoremap <buffer> <plug>(transcribe-timepos-get)
+        \ <C-R>=_transcribe_get_timepos()<C-M>
 endfunction
