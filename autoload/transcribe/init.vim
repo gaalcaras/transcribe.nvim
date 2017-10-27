@@ -1,6 +1,6 @@
 function! transcribe#init#general()
   call s:init_default_mappings()
-  call transcribe#helper#load()
+  call transcribe#helper#load_media()
 endfunction
 
 function! s:init_default_mappings()
