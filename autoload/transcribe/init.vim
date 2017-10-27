@@ -18,4 +18,9 @@ function! s:init_default_mappings()
   call s:map('i', '<C-k>', '<plug>(transcribe-inc-speed)')
   call s:map('n', '<leader>j', '<plug>(transcribe-dec-speed)')
   call s:map('i', '<C-j>', '<plug>(transcribe-dec-speed)')
+
+  call s:map('n', '<leader>l', '<plug>(transcribe-inc-seek)')
+  call s:map('i', '<C-l>', '<plug>(transcribe-inc-seek)')
+  call s:map('n', '<leader>h', '<plug>(transcribe-dec-seek)')
+  call s:map('i', '<C-h>', '<plug>(transcribe-dec-seek)')
 endfunction

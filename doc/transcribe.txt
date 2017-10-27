@@ -67,6 +67,10 @@ Mapping         Mode Plug
 <C-k>           i    |<plug>(transcribe-inc-speed)|
 <leader>j       n    |<plug>(transcribe-dec-speed)|
 <C-j>           i    |<plug>(transcribe-dec-speed)|
+<leader>l       n    |<plug>(transcribe-inc-seek)|
+<C-l>           i    |<plug>(transcribe-inc-seek)|
+<leader>h       n    |<plug>(transcribe-dec-seek)|
+<C-h>           i    |<plug>(transcribe-dec-seek)|
 
 
 You can customize these mappings, for instance:
@@ -117,3 +121,24 @@ file, for instance with |TranscribeAudio|.
 :TranscribeSpeedDec                                       *TranscribeSpeedDec*
 
                 Decrease playback speed by subtracting 0.1 to current setting.
+
+
+:TranscribeSeek                                               *TranscribeSeek*
+
+                Seek forward or backward. Takes one mandatory argument which
+                can be any nonzero integer.
+
+                `:TranscribeSeek -15`
+
+
+                                                 *<plug>(transcribe-inc-seek)*
+:TranscribeSeekInc                                         *TranscribeSeekInc*
+
+
+                Seek forward 15 seconds.
+
+
+                                                 *<plug>(transcribe-dec-seek)*
+:TranscribeSeekDec                                         *TranscribeSeekDec*
+
+                Seek backward 15 seconds.

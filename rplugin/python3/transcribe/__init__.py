@@ -3,6 +3,7 @@ import mpv
 
 from transcribe.util import (error, msg) # noqa
 
+
 @neovim.plugin
 class Transcribe(object):
     def __init__(self, nvim):
@@ -77,3 +78,29 @@ class Transcribe(object):
 
         info = 'playback speed set to {:1.1f}'.format(self.player.speed)
         msg(self.nvim, info)
+
+    @neovim.function('_transcribe_seek')
+    def seek(self, args):
+        seek_target = args[0]
+
+        try:
+            seek_target = int(seek_target)
+        except ValueError:
+            error(self.nvim, 'argument should be an integer')
+            return
+
+        if seek_target == 0:
+            error(self.nvim, 'argument should be a nonzero integer')
+            return
+
+        self.player.seek(seek_target)
+
+        @self.player.event_callback('seek')
+        def echo_seek(event, seek_target=seek_target):
+            if seek_target > 0:
+                direction = 'forward'
+            else:
+                direction = 'backward'
+
+            seek_msg = 'seek {} {} seconds'.format(direction, seek_target)
+            msg(self.nvim, seek_msg)
