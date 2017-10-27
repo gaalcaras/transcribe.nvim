@@ -9,19 +9,22 @@ License:            GNU GPLv3
 TABLE OF CONTENTS                                        *transcribe-contents*
 ==============================================================================
 
-    1. Introduction .................... |transcribe-intro|
-    2. Install ......................... |transcribe-install|
-    3. Usage ........................... |transcribe-usage|
+    Introduction ....................... |transcribe-intro|
+    Install ............................ |transcribe-install|
+    Usage .............................. |transcribe-usage|
+      Default mappings ................. |transcribe-default-mappings|
+      Commands ......................... |transcribe-commands|
 
 
 
 INTRODUCTION                                                *transcribe-intro*
 ==============================================================================
 
-*transcribe* is a NeoVim plugin aimed at helping humans to transcribe
+|transcribe| is a NeoVim plugin aimed at helping humans to transcribe
 recordings to text. Features include :
 
 * Native bindings for media control (load, play and pause)
+
 
 INSTALL                                                   *transcribe-install*
 ==============================================================================
@@ -29,27 +32,88 @@ INSTALL                                                   *transcribe-install*
 Use your favorite plugin manager.
 
 Using vim-plug:
->
-  Plug 'gaalcaras/transcribe.nvim', { 'do': './install' }
-<
+
+  `Plug 'gaalcaras/transcribe.nvim', { 'do': './install' }`
 
 *transcribe* relies on MPV and python-mpv for media playback. Run:
->
-  ./install
-<
+
+  `./install`
+
 to make sure they are both installed, or install them manually.
+
 
 USAGE                                                       *transcribe-usage*
 ==============================================================================
 
-Load local file or URL:
->
-:TranscribeAudio https://www.youtube.com/watch?v=o8NPllzkFhE
-<
+      Default mappings ................. |transcribe-default-mappings|
+      Commands ......................... |transcribe-commands|
 
-Playback should start playing automatically.
 
-You can pause/resume playback with <leader><space> or using the command
->
-:TranscribePause
-<
+DEFAULT MAPPINGS                                 *transcribe-default-mappings*
+------------------------------------------------------------------------------
+
+|transcribe| uses mappings (both in normal and insert modes) to provide the
+user with direct control over the media playback.
+
+Also note that most mappings won't do anything before you load a media file
+(see |transcribe-commands|).
+
+
+Mapping         Mode Plug
+-------------------------------------------------------
+<leader><space> n    |<plug>(transcribe-toggle-pause)|
+<C-space>       i    |<plug>(transcribe-toggle-pause)|
+<leader>k       n    |<plug>(transcribe-inc-speed)|
+<C-k>           i    |<plug>(transcribe-inc-speed)|
+<leader>j       n    |<plug>(transcribe-dec-speed)|
+<C-j>           i    |<plug>(transcribe-dec-speed)|
+
+
+You can customize these mappings, for instance:
+
+  `nmap <silent><buffer> <C-space> <plug>(transcribe-toggle-pause)`
+
+
+COMMANDS                                                 *transcribe-commands*
+------------------------------------------------------------------------------
+
+Most of the commands remain unavailable unless you explicitely load a media
+file, for instance with |TranscribeAudio|.
+
+:TranscribeAudio                                             *TranscribeAudio*
+
+                Load local file or URL and automatically start playback once
+                media file is loaded.
+
+                If you give a URL as an argument (e.g. a YouTube video), you
+                might have to wait a while before playback begins: mpv uses
+                youtube-dl to download the file.
+
+                `:TranscribeAudio https://www.youtube.com/watch?v=o8NPllzkFhE`
+                `:TranscribeAudio /path/to/file.mp3`
+
+                                             *<plug>(transcribe-toggle-pause)*
+:TranscribePause                                             *TranscribePause*
+
+                Pause or resume playback.
+
+
+:TranscribeSpeedSet                                       *TranscribeSpeedSet*
+
+                Directly set playback speed. Takes one mandatory argument
+                which can be any positive decimal number.
+
+                `:TranscribeSpeedSet 0.8`
+
+
+                                                *<plug>(transcribe-inc-speed)*
+:TranscribeSpeedInc                                       *TranscribeSpeedInc*
+
+
+                Increase playback speed by adding 0.1 to current setting.
+
+
+                                                *<plug>(transcribe-dec-speed)*
+:TranscribeSpeedDec                                       *TranscribeSpeedDec*
+
+                Decrease playback speed by subtracting 0.1 to current setting.
