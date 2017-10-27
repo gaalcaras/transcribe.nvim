@@ -6,7 +6,11 @@ Transcribe is a [NeoVim](https://neovim.io/) plugin aimed at helping humans to t
 
 ## Features
 
-+ **Control media playback (load, play and pause) directly from NeoVim** rather than juggling with another software in the background and using media keys
++ **Control media playback directly from NeoVim** rather than juggling with another software in the background and using media keys
+  * Load media (local file or remote URL), play and pause
+  * Set playback speed
+  * Seek forward or backward
++ **Write time position in buffer** (insert mode)
 
 ## Installation
 

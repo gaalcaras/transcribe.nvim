@@ -1,4 +1,4 @@
-*transcribe*  Transcription features for NeoVim
+*transcribe*                      Asynchronous Transcription plugin for NeoVim
 
                   T R A N S C R I B E . N V I M~
 
@@ -14,7 +14,7 @@ TABLE OF CONTENTS                                        *transcribe-contents*
     Usage .............................. |transcribe-usage|
       Default mappings ................. |transcribe-default-mappings|
       Commands ......................... |transcribe-commands|
-
+      Plugs ............................ |transcribe-plugs|
 
 
 INTRODUCTION                                                *transcribe-intro*
@@ -23,7 +23,11 @@ INTRODUCTION                                                *transcribe-intro*
 |transcribe| is a NeoVim plugin aimed at helping humans to transcribe
 recordings to text. Features include :
 
-* Native bindings for media control (load, play and pause)
+* Native bindings for media control:
+  * Load media (local file or remote URL), play and pause
+  * Set playback speed
+  * Seek forward or backward
+* Write time position in buffer (insert mode)
 
 
 INSTALL                                                   *transcribe-install*
@@ -47,13 +51,16 @@ USAGE                                                       *transcribe-usage*
 
       Default mappings ................. |transcribe-default-mappings|
       Commands ......................... |transcribe-commands|
+      Plugs ............................ |transcribe-plugs|
 
 
 DEFAULT MAPPINGS                                 *transcribe-default-mappings*
 ------------------------------------------------------------------------------
 
 |transcribe| uses mappings (both in normal and insert modes) to provide the
-user with direct control over the media playback.
+user with direct control over the media playback. All mappings have `<plug>`
+and most of them have corresponding commands (|transcribe-commands|), except
+those who are reserved to insert mode (|transcribe-plugs|).
 
 Also note that most mappings won't do anything before you load a media file
 (see |transcribe-commands|).
@@ -71,6 +78,8 @@ Mapping         Mode Plug
 <C-l>           i    |<plug>(transcribe-inc-seek)|
 <leader>h       n    |<plug>(transcribe-dec-seek)|
 <C-h>           i    |<plug>(transcribe-dec-seek)|
+<leader>p       n    |<plug>(transcribe-progress)|
+<C-t>           i    |<plug>(transcribe-timepos-get)|
 
 
 You can customize these mappings, for instance:
@@ -142,3 +151,22 @@ file, for instance with |TranscribeAudio|.
 :TranscribeSeekDec                                         *TranscribeSeekDec*
 
                 Seek backward 15 seconds.
+
+                                                 *<plug>(transcribe-progress)*
+:TranscribeProgress                                       *TranscribeProgress*
+
+
+                Display current progress (time position in media file and
+                percentage).
+
+
+PLUGS                                                       *transcribe-plugs*
+------------------------------------------------------------------------------
+
+This a list of mappings (|transcribe-mappings|) without matching commands
+(|transcribe-commands|).
+
+                                              *<plug>(transcribe-timepos-get)*
+
+                Write current time position in media file (only in insert
+                mode).
