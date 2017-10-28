@@ -37,11 +37,11 @@ Use your favorite plugin manager.
 
 Using vim-plug:
 
-  `Plug 'gaalcaras/transcribe.nvim', { 'do': './install' }`
+  `Plug 'gaalcaras/transcribe.nvim', { 'do': 'make install' }`
 
 *transcribe* relies on MPV and python-mpv for media playback. Run:
 
-  `./install`
+  `make install`
 
 to make sure they are both installed, or install them manually.
 

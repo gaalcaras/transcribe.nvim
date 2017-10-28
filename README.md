@@ -17,10 +17,10 @@ Transcribe is a [NeoVim](https://neovim.io/) plugin aimed at helping humans to t
 Using [vim-plug](https://github.com/junegunn/vim-plug):
 
 ```vim
-Plug 'gaalcaras/transcribe.nvim', { 'do': './install' }
+Plug 'gaalcaras/transcribe.nvim', { 'do': 'make install' }
 ```
 
-Transcribe relies on [mpv](https://mpv.io/) and [python-mpv](https://github.com/jaseg/python-mpv) for media playback. Run `./install` to make sure they are both installed, or install them manually. Don't forget to run `:UpdateRemotePlugins` and restart NeoVim to properly install or update the plugin.
+Transcribe relies on [mpv](https://mpv.io/) and [python-mpv](https://github.com/jaseg/python-mpv) for media playback. Run `make install` to make sure they are both installed, or install them manually. Don't forget to run `:UpdateRemotePlugins` and restart NeoVim to properly install or update the plugin.
 
 ## Usage
 
