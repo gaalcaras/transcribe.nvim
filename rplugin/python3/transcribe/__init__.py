@@ -8,6 +8,7 @@ from transcribe.util import (error, msg, fmtseconds, time_to_seconds) # noqa
 class Transcribe(object):
     def __init__(self, nvim):
         self.nvim = nvim
+        self._last_seek = 0
 
     def _mpv_log(self, loglevel, component, message):
         if (loglevel == 'error') or ('ERROR' in message):
@@ -37,6 +38,19 @@ class Transcribe(object):
         @self.player.event_callback('unpause')
         def echo_unpause(event):
             msg(self.nvim, 'playback resumed')
+
+        @self.player.event_callback('seek')
+        def echo_seek(event):
+            seek = self._last_seek
+            time_pos = fmtseconds(self.player.time_pos)
+
+            if seek > 0:
+                direction = 'forward'
+            else:
+                direction = 'backward'
+
+            seek_msg = 'seek {} ({:+d}s): {}'.format(direction, seek, time_pos)
+            msg(self.nvim, seek_msg)
 
     @neovim.function('_transcribe_pause')
     def toggle_pause(self, args):
@@ -94,16 +108,7 @@ class Transcribe(object):
             return
 
         self.player.seek(seek_target)
-
-        @self.player.event_callback('seek')
-        def echo_seek(event, seek_target=seek_target):
-            if seek_target > 0:
-                direction = 'forward'
-            else:
-                direction = 'backward'
-
-            seek_msg = 'seek {} {} seconds'.format(direction, seek_target)
-            msg(self.nvim, seek_msg)
+        self._last_seek = seek_target
 
     @neovim.function('_transcribe_get_timepos', sync=True)
     def get_timepos(self, args):
