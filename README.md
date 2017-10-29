@@ -4,6 +4,20 @@ Transcribe is a [NeoVim](https://neovim.io/) plugin aimed at helping humans to t
 
 **Warning** : this project is still in a very early stage of development. It's not feature complete yet and you can expect breaking changes.
 
+## Table of contents
+
+<!-- vim-markdown-toc GFM -->
+
+* [Features](#features)
+* [Installation](#installation)
+* [Quick start](#quick-start)
+  * [Playback control](#playback-control)
+  * [Progress and time codes](#progress-and-time-codes)
+  * [Mappings](#mappings)
+* [Why?](#why)
+
+<!-- vim-markdown-toc -->
+
 ## Features
 
 + **Control media playback directly from NeoVim** rather than juggling with another software in the background and using media keys
