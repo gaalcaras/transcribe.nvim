@@ -48,33 +48,25 @@ class Transcribe(object):
 
         Arguments:
         speed -- speed or increment
-        mode  -- how to change speed (set, increase or decrease)
+        mode  -- how to change speed (relative by default or set)
         """
-        speed = args[0]
-        mode = args[1]
+        speed = args[0] if len(args) == 1 else 1
+        mode = args[1] if len(args) == 2 else ''
 
         try:
             speed = round(float(speed), 1)
         except ValueError:
-            error(self.nvim, 'argument should be a positive number')
-            return
-
-        if speed < 0:
-            error(self.nvim, 'speed should a positive number')
+            error(self.nvim, 'argument should be a number')
             return
 
         if mode == 'set':
             self.player.speed = speed
-        elif mode == 'inc':
-            self.player.speed += speed
-        elif mode == 'dec':
-            if (self.player.speed - speed) >= 0.1:
-                self.player.speed -= speed
+        else:
+            if (self.player.speed + speed) >= 0.1:
+                self.player.speed += speed
             else:
                 error(self.nvim, 'speed is already at minimum setting')
                 return
-        else:
-            error(self.nvim, 'speed mode should be either set, inc or dec')
 
         info = 'playback speed set to {:1.1f}'.format(self.player.speed)
         msg(self.nvim, info)

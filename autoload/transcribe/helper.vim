@@ -12,9 +12,9 @@ function! transcribe#helper#control(media, mode) abort
   command! -nargs=1 TranscribeSpeedSet
         \ call _transcribe_speed(<q-args>, 'set')
   command! -nargs=0 TranscribeSpeedInc
-        \ call _transcribe_speed(0.1, 'inc')
+        \ call _transcribe_speed(0.1)
   command! -nargs=0 TranscribeSpeedDec
-        \ call _transcribe_speed(0.1, 'dec')
+        \ call _transcribe_speed(-0.1)
   command! -nargs=1 TranscribeSeek
         \ call _transcribe_seek(<q-args>)
   command! -nargs=0 TranscribeSeekForward
