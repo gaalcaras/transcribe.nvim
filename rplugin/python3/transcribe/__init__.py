@@ -17,8 +17,18 @@ class Transcribe(object):
 
     @neovim.function('_transcribe_load')
     def load_media(self, args):
+        """Initialize player and load media file
+
+        Arguments:
+        mediafile -- file or URL
+        mode      -- audio by default
+        """
+        if not args:
+            error(self.nvim, 'takes at least one argument')
+            return
+
         media = args[0]
-        mode = args[1]
+        mode = args[1] if len(args) == 2 else 'audio'
 
         if mode == 'audio':
             self.player = mpv.MPV(ytdl=True, video=False,
@@ -95,6 +105,10 @@ class Transcribe(object):
         # Wait for media file to be properly loaded
         self.player.wait_for_property('time-pos')
 
+        if not args:
+            error(self.nvim, 'takes at least one argument')
+            return
+
         seek_target = args[0]
 
         try:
@@ -121,7 +135,7 @@ class Transcribe(object):
         # Wait for media file to be properly loaded
         self.player.wait_for_property('time-pos')
 
-        fmt = args[0] if args else '[{H}:{M}:{S}] '
+        fmt = args[0] if len(args) == 1 else '[{H}:{M}:{S}] '
         return fmtseconds(self.player.time_pos, fmt)
 
     @neovim.function('_transcribe_set_timepos')
@@ -131,8 +145,12 @@ class Transcribe(object):
         # Wait for media file to be properly loaded
         self.player.wait_for_property('time-pos')
 
+        if not args:
+            error(self.nvim, 'takes at least one argument')
+            return
+
         time = args[0]
-        fmt = args[1] if args[1] else '%H:%M:%S'
+        fmt = args[1] if len(args) == 2 else '%H:%M:%S'
         msg(self.nvim, fmt)
 
         try:
