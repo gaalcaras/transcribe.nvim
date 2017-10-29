@@ -135,13 +135,16 @@ class Transcribe(object):
         self.player.wait_for_property('time-pos')
 
         time = args[0]
+        fmt = args[1] if args[1] else '%H:%M:%S'
+        msg(self.nvim, fmt)
+
         try:
-            seconds = time_to_seconds(time)
+            seconds = time_to_seconds(time, fmt)
         except ValueError:
             error(self.nvim, 'argument should be formatted as %H:%M:%S')
             return
 
-        self.player.time_pos = time_to_seconds(seconds)
+        self.player.time_pos = seconds
 
     @neovim.function('_transcribe_progress')
     def msg_progress(self, args):

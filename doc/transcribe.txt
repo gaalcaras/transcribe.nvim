@@ -80,6 +80,7 @@ Mapping         Mode Plug
 <C-h>           i    |<plug>(transcribe-seek-backward)|
 <leader>p       n    |<plug>(transcribe-progress)|
 <C-t>           i    |<plug>(transcribe-timepos-get)|
+<leader>g       n    |<plug>(transcribe-timepos-set)|
 
 
 You can customize these mappings, for instance:
@@ -168,7 +169,6 @@ file, for instance with |TranscribeAudio|.
                 `:TranscribeGoto 00:01:35`
                 `:TranscribeGoto 03:54`
 
-
 PLUGS                                                       *transcribe-plugs*
 ------------------------------------------------------------------------------
 
@@ -179,3 +179,8 @@ This a list of mappings (|transcribe-mappings|) without matching commands
 
                 Write current time position in media file (only in insert
                 mode).
+
+
+                                              *<plug>(transcribe-timepos-set)*
+
+                Go to the time code currently under the cursor.

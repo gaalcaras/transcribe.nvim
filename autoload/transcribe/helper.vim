@@ -54,4 +54,6 @@ function! transcribe#helper#timepos() abort
         \ :TranscribeProgress<cr>
   inoremap <buffer> <plug>(transcribe-timepos-get)
         \ <C-R>=_transcribe_get_timepos()<C-M>
+  nnoremap <buffer> <plug>(transcribe-timepos-set)
+        \ :call transcribe#util#get_current_timepos()<cr>
 endfunction
