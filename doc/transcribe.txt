@@ -159,6 +159,15 @@ file, for instance with |TranscribeAudio|.
                 Display current progress (time position in media file and
                 percentage).
 
+:TranscribeGoto                                               *TranscribeGoto*
+
+
+                Jump to time position. Takes one mandatory argument for the
+                time position (%H:%M:%S or %M:%S).
+
+                `:TranscribeGoto 00:01:35`
+                `:TranscribeGoto 03:54`
+
 
 PLUGS                                                       *transcribe-plugs*
 ------------------------------------------------------------------------------

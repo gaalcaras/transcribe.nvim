@@ -18,6 +18,8 @@ class TestTimeToSeconds(unittest.TestCase):
     def test_timetosec_standard_format(self):
         self.assertEqual(util.time_to_seconds('10:45:01'), 38701)
         self.assertEqual(util.time_to_seconds('00:05:41'), 341)
+        self.assertEqual(util.time_to_seconds('05:41'), 341)
 
     def test_timetosec_custom_format(self):
         self.assertEqual(util.time_to_seconds('05:41', '%M:%S'), 341)
+        self.assertEqual(util.time_to_seconds('01:26', '%H:%S'), 3626)

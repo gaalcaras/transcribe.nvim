@@ -47,6 +47,8 @@ endfunction
 function! transcribe#helper#timepos() abort
   command! -nargs=0 TranscribeProgress
         \ call _transcribe_progress()
+  command! -nargs=1 TranscribeGoto
+        \ call _transcribe_set_timepos(<q-args>)
 
   nnoremap <buffer> <plug>(transcribe-progress)
         \ :TranscribeProgress<cr>

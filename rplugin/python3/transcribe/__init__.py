@@ -1,7 +1,7 @@
 import neovim
 import mpv
 
-from transcribe.util import (error, msg, fmtseconds) # noqa
+from transcribe.util import (error, msg, fmtseconds, time_to_seconds) # noqa
 
 
 @neovim.plugin
@@ -120,15 +120,33 @@ class Transcribe(object):
         Arguments:
         format -- format string with {H}, {M}, {S}
         """
+
         # Wait for media file to be properly loaded
         self.player.wait_for_property('time-pos')
 
         fmt = args[0] if args else '[{H}:{M}:{S}] '
         return fmtseconds(self.player.time_pos, fmt)
 
+    @neovim.function('_transcribe_set_timepos')
+    def set_timepos(self, args):
+        """Set time position in current media file"""
+
+        # Wait for media file to be properly loaded
+        self.player.wait_for_property('time-pos')
+
+        time = args[0]
+        try:
+            seconds = time_to_seconds(time)
+        except ValueError:
+            error(self.nvim, 'argument should be formatted as %H:%M:%S')
+            return
+
+        self.player.time_pos = time_to_seconds(seconds)
+
     @neovim.function('_transcribe_progress')
     def msg_progress(self, args):
         """Display message with position in current file"""
+
         # Wait for media file to be properly loaded
         self.player.wait_for_property('time-pos')
 

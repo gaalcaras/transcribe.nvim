@@ -25,7 +25,11 @@ def fmtseconds(seconds=0, fmt='{H}:{M}:{S}'):
 
 def time_to_seconds(time, fmt='%H:%M:%S'):
     """Convert a time string to total number of seconds"""
-    time = datetime.strptime(time, fmt)
+    try:
+        time = datetime.strptime(time, fmt)
+    except ValueError:
+        time = datetime.strptime(time, '%M:%S')
+
     duration = timedelta(hours=time.hour,
                          minutes=time.minute,
                          seconds=time.second)
