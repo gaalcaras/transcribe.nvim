@@ -54,13 +54,15 @@ class Transcribe(object):
             seek = self._last_seek
             time_pos = fmtseconds(self.player.time_pos)
 
-            if seek > 0:
-                direction = 'forward'
+            if seek == 0:
+                seek_msg = 'jump to {}'.format(time_pos)
             else:
-                direction = 'backward'
+                direction = 'forward' if seek > 0 else 'backward'
+                seek_msg = 'seek {} ({:+d}s): {}'.format(direction,
+                                                         seek, time_pos)
 
-            seek_msg = 'seek {} ({:+d}s): {}'.format(direction, seek, time_pos)
             msg(self.nvim, seek_msg)
+            self._last_seek = 0
 
     @neovim.function('_transcribe_pause')
     def toggle_pause(self, args):
