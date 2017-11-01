@@ -13,6 +13,7 @@ TABLE OF CONTENTS                                        *transcribe-contents*
     Install ............................ |transcribe-install|
     Usage .............................. |transcribe-usage|
       Default mappings ................. |transcribe-default-mappings|
+      Options .......................... |transcribe-options|
       Commands ......................... |transcribe-commands|
       Plugs ............................ |transcribe-plugs|
 
@@ -55,6 +56,7 @@ USAGE                                                       *transcribe-usage*
 ==============================================================================
 
       Default mappings ................. |transcribe-default-mappings|
+      Options .......................... |transcribe-options|
       Commands ......................... |transcribe-commands|
       Plugs ............................ |transcribe-plugs|
 
@@ -94,6 +96,32 @@ Mapping         Mode Plug
 You can customize these mappings, for instance:
 
   `nmap <silent><buffer> <C-space> <plug>(transcribe-toggle-pause)`
+
+
+OPTIONS                                                   *transcribe-options*
+------------------------------------------------------------------------------
+
+*g:transcribe_localleader*
+
+  Use `<localleader>` instead of `<leader>` for all normal mappings.
+
+  Default value: 0
+
+
+*g:transcribe_speed_inc*
+
+  Set speed increase or decrease increment. See |TranscribeSpeedInc| or
+  |TranscribeSpeedDec|.
+
+  Default value: 0.1
+
+
+*g:transcribe_seek_inc*
+
+  Set seek forward or backward increment. See |TranscribeSeekForward| or
+  |TranscribeSeekBackward|.
+
+  Default value: 15
 
 
 COMMANDS                                                 *transcribe-commands*

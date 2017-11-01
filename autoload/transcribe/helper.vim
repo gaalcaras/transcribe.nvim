@@ -1,26 +1,26 @@
 function! transcribe#helper#load_media() abort
   command! -nargs=1 -complete=file TranscribeAudio
-        \ call transcribe#helper#control(<q-args>, 'audio')
+        \ call s:load_media_control(<q-args>, 'audio')
 endfunction
 
-function! transcribe#helper#control(media, mode) abort
+function! s:load_media_control(media, mode) abort
   call _transcribe_load(a:media, a:mode)
-  call transcribe#helper#timepos()
+  call s:load_timepos_control()
 
   command! -nargs=0 TranscribePause
         \ call _transcribe_pause()
   command! -nargs=1 TranscribeSpeedSet
         \ call _transcribe_speed(<q-args>, 'set')
   command! -nargs=0 TranscribeSpeedInc
-        \ call _transcribe_speed(0.1)
+        \ call _transcribe_speed(g:transcribe_speed_inc)
   command! -nargs=0 TranscribeSpeedDec
-        \ call _transcribe_speed(-0.1)
+        \ call _transcribe_speed(-g:transcribe_speed_inc)
   command! -nargs=1 TranscribeSeek
         \ call _transcribe_seek(<q-args>)
   command! -nargs=0 TranscribeSeekForward
-        \ call _transcribe_seek(15)
+        \ call _transcribe_seek(g:transcribe_seek_inc)
   command! -nargs=0 TranscribeSeekBackward
-        \ call _transcribe_seek(-15)
+        \ call _transcribe_seek(-g:transcribe_seek_inc)
 
   nnoremap <buffer> <plug>(transcribe-toggle-pause)
         \ :TranscribePause<cr>
@@ -44,13 +44,13 @@ function! transcribe#helper#control(media, mode) abort
         \ <C-o>:TranscribeSeekBackward<cr>
 endfunction
 
-function! transcribe#helper#timepos() abort
+function! s:load_timepos_control() abort
   command! -nargs=0 TranscribeProgress
         \ call _transcribe_progress()
   command! -nargs=1 TranscribeGoto
         \ call _transcribe_set_timepos(<q-args>)
   command! -nargs=0 TranscribeToggleSyncMode
-        \ call transcribe#helper#toggle_sync()
+        \ call s:toggle_sync_mode()
 
   nnoremap <buffer> <plug>(transcribe-progress)
         \ :TranscribeProgress<cr>
@@ -66,7 +66,7 @@ function! transcribe#helper#timepos() abort
         \ :TranscribeToggleSyncMode<cr>
 endfunction
 
-function! transcribe#helper#toggle_sync() abort
+function! s:toggle_sync_mode() abort
   if !exists('#TranscribeSync#CursorMoved')
     call _transcribe_timepos_curline()
     augroup TranscribeSync
