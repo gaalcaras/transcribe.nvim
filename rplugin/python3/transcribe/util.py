@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import re
 
 def msg(nvim, expr):
     string = (expr if isinstance(expr, str) else str(expr))
@@ -35,3 +36,23 @@ def time_to_seconds(time, fmt='%H:%M:%S'):
                          seconds=time.second)
 
     return duration.total_seconds()
+
+
+def get_timecodes(line):
+    """Return timecodes in line"""
+
+    pattern = re.compile(r'\[([0-9]{2}:)?[0-5][0-9]:[0-5][0-9]\]')
+    matches = re.finditer(pattern, line)
+    timecodes = []
+
+    for match in matches:
+        timecodes.append({
+            'timecode': match[0],
+            'start_index': match.span(0)[0],
+            'end_index': match.span(0)[1]
+            })
+
+    if timecodes == []:
+        return None
+    else:
+        return timecodes

@@ -23,3 +23,23 @@ class TestTimeToSeconds(unittest.TestCase):
     def test_timetosec_custom_format(self):
         self.assertEqual(util.time_to_seconds('05:41', '%M:%S'), 341)
         self.assertEqual(util.time_to_seconds('01:26', '%H:%S'), 3626)
+
+
+class TestGetTimecode(unittest.TestCase):
+
+    def test_get_timecodes_match(self):
+        str_1 = '[00:23:53] test [78:32:98] string [00:23]'
+        str_2 = '[00:23:83] test string'
+
+        self.assertEqual(util.get_timecodes(str_1),
+                         [{
+                             'timecode': '[00:23:53]',
+                             'start_index': 0,
+                             'end_index': 10
+                         },
+                         {
+                             'timecode': '[00:23]',
+                             'start_index': 34,
+                             'end_index': 41
+                         }])
+        self.assertIsNone(util.get_timecodes(str_2))

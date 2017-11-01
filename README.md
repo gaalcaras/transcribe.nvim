@@ -5,7 +5,6 @@ Transcribe is a [NeoVim](https://neovim.io/) plugin aimed at helping humans to t
 **Warning** : this project is still in a very early stage of development. It's not feature complete yet and you can expect breaking changes.
 
 ## Table of contents
-
 <!-- vim-markdown-toc GFM -->
 
 * [Features](#features)
@@ -17,7 +16,6 @@ Transcribe is a [NeoVim](https://neovim.io/) plugin aimed at helping humans to t
 * [Why?](#why)
 
 <!-- vim-markdown-toc -->
-
 ## Features
 
 + **Control media playback directly from NeoVim** rather than juggling with another software in the background and using media keys
@@ -25,8 +23,11 @@ Transcribe is a [NeoVim](https://neovim.io/) plugin aimed at helping humans to t
   * Set playback speed
   * Seek forward or backward
 + **Time code management**:
-  * Insert current time position in the buffer 
-  * Directly go to time code under the cursor
+  * Insert current time position in the buffer
+  * Directly go to time code under the cursor / on the current line
++ **Sync mode**:
+  * Always keep the playback in sync with your position in the file, using
+    time codes.
 
 ## Installation
 
@@ -60,24 +61,28 @@ Playback should start automatically. Transcribe will then load commands and mapp
 
 + See where you are in media playback with `:TranscribeProgress`
 + Jump to time code with `:TranscribeGoto 00:34:23`
++ Toggle sync mode on/off with `:TranscribeSyncMode`
 
 ### Mappings
 
-| Mapping           | Action                       | Mode   | Plug                               |
-| --                | --                           | --     | --                                 |
-| `<leader><space>` | Pause/Resume                 | Normal | `<plug>(transcribe-toggle-pause)`  |
-| `<C-space>`       | Pause/Resume                 | Insert | `<plug>(transcribe-toggle-pause)`  |
-| `<leader>k`       | Increase speed by 0.1        | Normal | `<plug>(transcribe-speed-inc)`     |
-| `<C-k>`           | Increase speed by 0.1        | Insert | `<plug>(transcribe-speed-inc)`     |
-| `<leader>j`       | Decrease speed by 0.1        | Normal | `<plug>(transcribe-speed-dec)`     |
-| `<C-j>`           | Decrease speed by 0.1        | Insert | `<plug>(transcribe-speed-dec)`     |
-| `<leader>l`       | Seek forward by 15s          | Normal | `<plug>(transcribe-seek-forward)`  |
-| `<C-l>`           | Seek forward by 15s          | Insert | `<plug>(transcribe-seek-forward)`  |
-| `<leader>h`       | Seek backward by 15s         | Normal | `<plug>(transcribe-seek-backward)` |
-| `<C-h>`           | Seek backward by 15s         | Insert | `<plug>(transcribe-seek-backward)` |
-| `<leader>p`       | See playback progress        | Normal | `<plug>(transcribe-progress)`      |
-| `<C-t>`           | Insert current time position | Insert | `<plug>(transcribe-timepos-get)`   |
-| `<leader>g`       | Go to time code under cursor | Normal | `<plug>(transcribe-timepos-set)`   |
+| Mapping           | Action                                | Mode   | Plug                                 |
+| --                | --                                    | --     | --                                   |
+| `<leader><space>` | Pause/Resume                          | Normal | `<plug>(transcribe-toggle-pause)`    |
+| `<C-space>`       | Pause/Resume                          | Insert | `<plug>(transcribe-toggle-pause)`    |
+| `<leader>k`       | Increase speed by 0.1                 | Normal | `<plug>(transcribe-speed-inc)`       |
+| `<C-k>`           | Increase speed by 0.1                 | Insert | `<plug>(transcribe-speed-inc)`       |
+| `<leader>j`       | Decrease speed by 0.1                 | Normal | `<plug>(transcribe-speed-dec)`       |
+| `<C-j>`           | Decrease speed by 0.1                 | Insert | `<plug>(transcribe-speed-dec)`       |
+| `<leader>l`       | Seek forward by 15s                   | Normal | `<plug>(transcribe-seek-forward)`    |
+| `<C-l>`           | Seek forward by 15s                   | Insert | `<plug>(transcribe-seek-forward)`    |
+| `<leader>h`       | Seek backward by 15s                  | Normal | `<plug>(transcribe-seek-backward)`   |
+| `<C-h>`           | Seek backward by 15s                  | Insert | `<plug>(transcribe-seek-backward)`   |
+| `<leader>p`       | See playback progress                 | Normal | `<plug>(transcribe-progress)`        |
+| `<C-t>`           | Insert current time position          | Insert | `<plug>(transcribe-timepos-get)`     |
+| `<leader>gw`      | Go to time code under cursor          | Normal | `<plug>(transcribe-timepos-curword)` |
+| `<leader>gl`      | Go to first time code on current line | Normal | `<plug>(transcribe-timepos-curline)` |
+| `<C-l>`           | Go to first time code on current line | Insert | `<plug>(transcribe-timepos-curline)` |
+| `<leader>ms`      | Toggle sync mode on/off               | Normal | `<plug>(transcribe-sync-mode)`       |
 
 ## Why?
 

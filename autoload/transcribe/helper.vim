@@ -49,11 +49,35 @@ function! transcribe#helper#timepos() abort
         \ call _transcribe_progress()
   command! -nargs=1 TranscribeGoto
         \ call _transcribe_set_timepos(<q-args>)
+  command! -nargs=0 TranscribeToggleSyncMode
+        \ call transcribe#helper#toggle_sync()
 
   nnoremap <buffer> <plug>(transcribe-progress)
         \ :TranscribeProgress<cr>
   inoremap <buffer> <plug>(transcribe-timepos-get)
         \ <C-R>=_transcribe_get_timepos()<C-M>
-  nnoremap <buffer> <plug>(transcribe-timepos-set)
+  nnoremap <buffer> <plug>(transcribe-timepos-curword)
         \ :call transcribe#util#get_current_timepos()<cr>
+  nnoremap <buffer> <plug>(transcribe-timepos-curline)
+        \ :call _transcribe_timepos_curline()<cr>
+  inoremap <buffer> <plug>(transcribe-timepos-curline)
+        \ <C-o>:call _transcribe_timepos_curline()<cr>
+  nnoremap <buffer> <plug>(transcribe-sync-mode)
+        \ :TranscribeToggleSyncMode<cr>
+endfunction
+
+function! transcribe#helper#toggle_sync() abort
+  if !exists('#TranscribeSync#CursorMoved')
+    call _transcribe_timepos_curline()
+    augroup TranscribeSync
+      autocmd!
+      autocmd CursorMoved * call _transcribe_check_new_line()
+      autocmd InsertLeave * call _transcribe_timepos_curline()
+    augroup END
+  else
+    call _transcribe_clear_hl()
+    augroup TranscribeSync
+      autocmd!
+    augroup END
+  endif
 endfunction

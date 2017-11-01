@@ -27,7 +27,12 @@ recordings to text. Features include :
   * Load media (local file or remote URL), play and pause
   * Set playback speed
   * Seek forward or backward
-* Write time position in buffer (insert mode)
+* Time code management:
+  * Insert current time position in the buffer
+  * Directly go to time code under the cursor / on the current line
+* Sync mode:
+  * Always keep the playback in sync with your position in the file, using
+    time codes.
 
 
 INSTALL                                                   *transcribe-install*
@@ -80,7 +85,10 @@ Mapping         Mode Plug
 <C-h>           i    |<plug>(transcribe-seek-backward)|
 <leader>p       n    |<plug>(transcribe-progress)|
 <C-t>           i    |<plug>(transcribe-timepos-get)|
-<leader>g       n    |<plug>(transcribe-timepos-set)|
+<leader>gw      n    |<plug>(transcribe-timepos-curword)|
+<leader>gl      n    |<plug>(transcribe-timepos-curline)|
+<C-l>           i    |<plug>(transcribe-timepos-curline)|
+<leader>ms      n    |<plug>(transcribe-sync-mode)|
 
 
 You can customize these mappings, for instance:
@@ -169,6 +177,18 @@ file, for instance with |TranscribeAudio|.
                 `:TranscribeGoto 00:01:35`
                 `:TranscribeGoto 03:54`
 
+                                                *<plug>(transcribe-sync-mode)*
+:TranscribeToggleSyncMode                           *TranscribeToggleSyncMode*
+
+
+                Toggle on/off transcribe "sync mode". Sync mode works in
+                normal mode only. If on, transcribe will asynchronously go to
+                the first timecode on the current line. This allows you to
+                move around your file while always keeping the playback in
+                sync.
+
+
+
 PLUGS                                                       *transcribe-plugs*
 ------------------------------------------------------------------------------
 
@@ -181,6 +201,11 @@ This a list of mappings (|transcribe-mappings|) without matching commands
                 mode).
 
 
-                                              *<plug>(transcribe-timepos-set)*
+                                          *<plug>(transcribe-timepos-curword)*
 
                 Go to the time code currently under the cursor.
+
+
+                                          *<plug>(transcribe-timepos-curline)*
+
+                Go to the first time code on the current line.

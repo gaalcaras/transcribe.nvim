@@ -26,5 +26,8 @@ function! s:init_default_mappings()
 
   call s:map('n', '<leader>p', '<plug>(transcribe-progress)')
   call s:map('i', '<C-t>', '<plug>(transcribe-timepos-get)')
-  call s:map('n', '<leader>g', '<plug>(transcribe-timepos-set)')
+  call s:map('n', '<leader>gw', '<plug>(transcribe-timepos-curword)')
+  call s:map('n', '<leader>gl', '<plug>(transcribe-timepos-curline)')
+  call s:map('i', '<C-l>', '<plug>(transcribe-timepos-curline)')
+  call s:map('n', '<leader>ms', '<plug>(transcribe-sync-mode)')
 endfunction

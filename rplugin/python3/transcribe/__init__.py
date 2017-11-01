@@ -1,7 +1,8 @@
 import neovim
 import mpv
 
-from transcribe.util import (error, msg, fmtseconds, time_to_seconds) # noqa
+from transcribe.util import (error, msg, fmtseconds, time_to_seconds, # noqa
+                             get_timecodes)
 
 
 @neovim.plugin
@@ -178,3 +179,43 @@ class Transcribe(object):
 
         msg_time_pos = 'progress: {} ({}%)'.format(time_pos, perc_pos)
         msg(self._nvim, msg_time_pos)
+
+    @neovim.function('_transcribe_check_new_line')
+    def check_new_line(self, args):
+        """Check if the cursor has moved to a new line"""
+        cur_line = self._nvim.funcs.line('.')
+
+        if cur_line != self._linenb:
+            self.go_to_current_line_timecode()
+            self._linenb = cur_line
+
+    @neovim.function('_transcribe_clear_hl')
+    def clear_highlight(self, args=None):
+        """Clear all highlights"""
+        self._nvim.current.buffer.clear_highlight(-1)
+
+    @neovim.function('_transcribe_timepos_curline')
+    def go_to_current_line_timecode(self, args=None):
+        """Go to first timecode on current buffer line"""
+
+        # Wait for media file to be properly loaded
+        self._player.wait_for_property('time-pos')
+
+        cur_line = self._nvim.current.line
+        codes = get_timecodes(cur_line)
+
+        if codes:
+            self.set_timepos([codes[0]['timecode'], '[%H:%M:%S]'])
+
+            #  If sync mode is on, highlight synced time code
+            augroup = self._nvim.funcs.exists('#TranscribeSync#CursorMoved')
+
+            if not augroup:
+                return
+
+            self.clear_highlight()
+            cur_line_nb = self._nvim.funcs.line('.')
+            self._nvim.current.buffer.add_highlight('Statement',
+                                                    cur_line_nb-1,
+                                                    codes[0]['start_index'],
+                                                    codes[0]['end_index'])
