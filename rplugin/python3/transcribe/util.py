@@ -2,13 +2,13 @@ from datetime import datetime, timedelta
 import re
 
 def msg(nvim, expr):
-    string = (expr if isinstance(expr, str) else str(expr))
-    nvim.call('transcribe#util#print_msg', string, async=True)
+    string = expr if isinstance(expr, str) else str(expr)
+    nvim.out_write('[transcribe] {}\n'.format(string))
 
 
 def error(nvim, expr):
-    string = (expr if isinstance(expr, str) else str(expr))
-    nvim.call('transcribe#util#print_error', string, async=True)
+    string = expr if isinstance(expr, str) else str(expr)
+    nvim.async_call('transcribe#util#print_error', string)
 
 
 def fmtseconds(seconds=0, fmt='{H}:{M}:{S}'):

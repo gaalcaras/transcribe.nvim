@@ -1,12 +1,12 @@
-import neovim
+import pynvim
 import mpv
 
 from transcribe.util import (error, msg, fmtseconds, time_to_seconds, # noqa
                              get_timecodes)
 
 
-@neovim.plugin
-class Transcribe(object):
+@pynvim.plugin
+class Transcribe:
     def __init__(self, nvim):
         self._nvim = nvim
         self._player = {}
@@ -17,9 +17,9 @@ class Transcribe(object):
     def _mpv_log(self, loglevel, component, message):
         if (loglevel == 'error') or ('ERROR' in message):
             err_msg = '{}: {}'.format(component, message)
-            error(self._nvim, err_msg)
+            self._nvim.async_call(error, self._nvim, err_msg)
 
-    @neovim.function('_transcribe_load')
+    @pynvim.function('_transcribe_load')
     def load_media(self, args):
         """Initialize player and load media file
 
@@ -33,6 +33,7 @@ class Transcribe(object):
 
         media = args[0]
         mode = args[1] if len(args) == 2 else 'audio'
+        nvim = self._nvim
 
         if mode == 'audio':
             self._player = mpv.MPV(ytdl=True, video=False,
@@ -43,15 +44,15 @@ class Transcribe(object):
 
         @self._player.event_callback('file-loaded')
         def echo_loaded(event):
-            msg(self._nvim, 'media loaded')
+            nvim.async_call(msg, self._nvim, 'media loaded')
 
         @self._player.event_callback('pause')
         def echo_pause(event):
-            msg(self._nvim, 'playback paused')
+            nvim.async_call(msg, self._nvim, 'playback paused')
 
         @self._player.event_callback('unpause')
         def echo_unpause(event):
-            msg(self._nvim, 'playback resumed')
+            nvim.async_call(msg, self._nvim, 'playback resumed')
 
         @self._player.event_callback('seek')
         def echo_seek(event):
@@ -65,14 +66,14 @@ class Transcribe(object):
                 seek_msg = 'seek {} ({:+d}s): {}'.format(direction,
                                                          seek, time_pos)
 
-            msg(self._nvim, seek_msg)
+            nvim.async_call(msg, self._nvim, seek_msg)
             self._last_seek = 0
 
-    @neovim.function('_transcribe_pause')
+    @pynvim.function('_transcribe_pause')
     def toggle_pause(self, args):
         self._player.cycle('pause')
 
-    @neovim.function('_transcribe_speed')
+    @pynvim.function('_transcribe_speed')
     def set_speed(self, args):
         """Change playback speed
 
@@ -101,7 +102,7 @@ class Transcribe(object):
         info = 'playback speed set to {:1.1f}'.format(self._player.speed)
         msg(self._nvim, info)
 
-    @neovim.function('_transcribe_seek')
+    @pynvim.function('_transcribe_seek')
     def seek(self, args):
         """Seek forward or backward
 
@@ -130,7 +131,7 @@ class Transcribe(object):
         self._player.seek(seek_target)
         self._last_seek = seek_target
 
-    @neovim.function('_transcribe_get_timepos', sync=True)
+    @pynvim.function('_transcribe_get_timepos', sync=True)
     def get_timepos(self, args):
         """Get formatted time position in current file
 
@@ -144,7 +145,7 @@ class Transcribe(object):
         fmt = args[0] if len(args) == 1 else '[{H}:{M}:{S}] '
         return fmtseconds(self._player.time_pos, fmt)
 
-    @neovim.function('_transcribe_set_timepos')
+    @pynvim.function('_transcribe_set_timepos')
     def set_timepos(self, args):
         """Set time position in current media file"""
 
@@ -157,7 +158,7 @@ class Transcribe(object):
 
         time = args[0]
         fmt = args[1] if len(args) == 2 else '%H:%M:%S'
-        msg(self._nvim, fmt)
+        self._nvim.async_call(msg, self._nvim, fmt)
 
         try:
             seconds = time_to_seconds(time, fmt)
@@ -167,7 +168,7 @@ class Transcribe(object):
 
         self._player.time_pos = seconds
 
-    @neovim.function('_transcribe_progress')
+    @pynvim.function('_transcribe_progress')
     def msg_progress(self, args):
         """Display message with position in current file"""
 
@@ -178,9 +179,9 @@ class Transcribe(object):
         perc_pos = round(self._player.percent_pos)
 
         msg_time_pos = 'progress: {} ({}%)'.format(time_pos, perc_pos)
-        msg(self._nvim, msg_time_pos)
+        self._nvim.async_call(msg, self._nvim, msg_time_pos)
 
-    @neovim.function('_transcribe_check_new_line')
+    @pynvim.function('_transcribe_check_new_line')
     def check_new_line(self, args):
         """Check if the cursor has moved to a new line"""
         cur_line = self._nvim.funcs.line('.')
@@ -189,12 +190,12 @@ class Transcribe(object):
             self.go_to_current_line_timecode()
             self._linenb = cur_line
 
-    @neovim.function('_transcribe_clear_hl')
+    @pynvim.function('_transcribe_clear_hl')
     def clear_highlight(self, args=None):
         """Clear all highlights"""
         self._nvim.current.buffer.clear_highlight(-1)
 
-    @neovim.function('_transcribe_timepos_curline')
+    @pynvim.function('_transcribe_timepos_curline')
     def go_to_current_line_timecode(self, args=None):
         """Go to first timecode on current buffer line"""
 
